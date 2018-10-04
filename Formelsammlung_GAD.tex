@@ -1,0 +1,86 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\author{Jonas Schulz}
+\begin{document}
+\section{Komplexitätsanalyse}
+\subsection{Effizienzmaße}
+\begin{itemize}
+\item Worst Case: $\color{blue}t(n)=max\{T(i):i\in I_n\}$
+\item Average Case: \begin{itemize}
+\item Gleichverteilt:\\
+$\color{blue}t(n)=\frac{1}{\vert I_n \vert}\sum_{i\in I_n}T(i)$
+\item Nicht gleichverteilt:\\
+$\color{blue}t(n)=\sum_{i\in I_n}p_i\cdot T(i)$
+\end{itemize}
+\item Best Case: $\color{blue}t(n)=min\{T(i):i\in I_n\}$
+\end{itemize}
+\subsection{Formalisierung asymptotischen Verhaltens}
+\begin{itemize}
+\item $\color{red}\mathcal{O}\color{blue}(f(n)) = \{ g(n):\color{red}\exists\color{blue} c>0: \exists n_0>0: \forall n\geq n_0: g(n)\color{red}\leq\color{blue} c\cdot f(n)\}$
+\item $\color{red}\Omega\color{blue}(f(n)) = \{ g(n):\color{red}\exists\color{blue} c>0: \exists n_0>0: \forall n\geq n_0: g(n)\color{red}\geq\color{blue} c\cdot f(n)\}$
+\item $\color{red}\Theta \color{blue}(f(n)) = \color{red}\mathcal{O}\color{blue}(f(n)) \color{red}\cap\Omega \color{blue}(f(n))$
+\item $\color{red}o\color{blue}(f(n)) = \{ g(n):\color{red}\forall\color{blue} c>0: \exists n_0>0: \forall n\geq n_0: g(n)\color{red}\leq\color{blue} c\cdot f(n)\}$
+\item $\color{red}\omega\color{blue}(f(n)) = \{ g(n):\color{red}\forall\color{blue} c>0: \exists n_0>0: \forall n\geq n_0: g(n)\color{red}\geq\color{blue} c\cdot f(n)\}$
+\end{itemize}
+\subsection{Rechenregeln für $\mathcal{O}$-Notation}
+\begin{itemize}
+\item Polynome $k$-ten Grades $\in\Theta(n^k)$
+\item Für Funktionen $f(n)$ bzw. $g(n)$ mit $\exists n_0 \forall n\geq n_0 : f(n) > 0$: \begin{itemize}
+\item $c\cdot f(n)\in\Theta(f(n))$
+\item $\mathcal{O}(f(n))+\mathcal{O}(g(n))=\mathcal{O}(f(n)+g(n))$
+\item $\mathcal{O}(f(n))\cdot\mathcal{O}(g(n))=\mathcal{O}(f(n)\cdot g(n))$
+\item $\mathcal{O}(f(n)+g(n))=\mathcal{O}(f(n))$, falls $g(n)\in\mathcal{O}(f(n))$
+\item $\Omega(f(n))+\Omega(g(n))=\Omega(f(n)+g(n))$
+\item $\Omega(f(n))\cdot\Omega(g(n))=\Omega(f(n)\cdot g(n))$
+\item $\Omega(f(n)+g(n))=\Omega(f(n))$, falls $g(n)\in\mathcal{O}(f(n))$
+\end{itemize}
+\item Falls $f,g$ differenzierbar, $X$ eines der fünf Landau-Symbole:\\
+ $f'(n)\in X(g'(n))\Rightarrow f(n)\in X(g(n))$
+\end{itemize}
+\section{Datenstrukturen für Sequenzen}
+\subsection{Dynamische Felder}
+\begin{itemize}
+\item Parameter:\begin{itemize}
+\item $\color{cyan}\beta =2$: Wachstumsfaktor
+\item $\color{cyan}\alpha =4$: max. Speicheroverhead
+\item $\color{cyan}w=1$: momentane Feldgröße
+\item $\color{cyan}n=0$: momentane Elementanzahl
+\item $\color{cyan}b=new ~X[w]$: statisches Feld
+\end{itemize}
+\item Methoden:\begin{itemize}
+\item get (int) : $X$ $\in\mathcal{O}(1)$
+\item set (int, $X$) : void $\in\mathcal{O}(1)$
+\item size () : int $\in\mathcal{O}(1)$
+\item pushBack ($X$ $x$) : void $\in$ (reallocate ? $\mathcal{O}(reallocate)$ : $\mathcal{O}(1)$)
+\item popBack () : void (Laufzeiten wie pushBack)
+\item reallocate (int) : void $\in\mathcal{O}(n)$, amortalisiert $\in\mathcal{O}(1)$
+\end{itemize}
+\end{itemize}
+\subsection{Doppelt verkettete Listen}
+
+\subsection{Stacks und Queues}
+\section{Hashing}
+$c$-universelles Hashing:\\
+Eine Familie $H$ von Hashfunktionen auf $\{0,...,m-1\}$ heißt $c$-universell, falls für jedes Paar $x\neq y$ von Schlüsseln gilt:\\
+$\vert\{ h\in H: h(x)=h(y)\}\vert \leq \frac{c}{m}\vert H\vert$.\\
+\begin{itemize}
+\item $c$: Kollisionsmaß
+\item $m$: Größe der Hashtabelle
+\item $n$: Anzahl Elemente in der HT
+\item Erwartete Laufzeit remove/find dann in $\mathcal{O}(1+c\cdot\frac{n}{m})$.
+\end{itemize}
+Mit $m$ prim und $h_a(x)=\langle a,x\rangle ~mod~m$ ist $H=\{h_a:a\in \{0,...,m-1\}^k\}$ 1-universell.\\
+Mit $m$ prim und $h_a(x)=\sum_{i=1}^ka^{i-1}x_i ~mod~ m$ ist $H=\{h_a:a\in \{1,...,m-1\}\}$ $k$-universell.
+\section{Sortieren}
+\section{Priority Queues}
+\section{Suchstrukturen}
+\section{Graphen}
+\section{Pattern Matching}
+\section{Datenkompression}
+\end{document}
