@@ -1,0 +1,22 @@
+\BOOKMARK [1][-]{section.1}{Komplexit\344tsanalyse}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Effizienzma\337e}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Formalisierung asymptotischen Verhaltens}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Rechenregeln f\374r O-Notation}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{Datenstrukturen}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Dynamische Felder}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Doppelt verkettete Listen}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Stacks und Queues}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Bin\344re Heaps}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.5}{Binomiale Heaps}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.6}{Fibonacci Heaps}{section.2}% 11
+\BOOKMARK [1][-]{section.3}{Hashing}{}% 12
+\BOOKMARK [1][-]{section.4}{Sortieren}{}% 13
+\BOOKMARK [2][-]{subsection.4.1}{Master-Theorem}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.2}{Verfahren}{section.4}% 15
+\BOOKMARK [1][-]{section.5}{Priority Queues}{}% 16
+\BOOKMARK [1][-]{section.6}{Suchstrukturen}{}% 17
+\BOOKMARK [1][-]{section.7}{Graphen}{}% 18
+\BOOKMARK [1][-]{section.8}{Pattern Matching}{}% 19
+\BOOKMARK [1][-]{section.9}{Datenkompression}{}% 20
+\BOOKMARK [1][-]{section.10}{Algorithmen}{}% 21
+\BOOKMARK [2][-]{subsection.10.1}{Bellman-Ford}{section.10}% 22
