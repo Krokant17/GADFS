@@ -6,6 +6,8 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{graphicx}
 \author{Jonas Schulz}
 \begin{document}
 \section{Komplexitätsanalyse}
@@ -43,7 +45,7 @@ $\color{blue}t(n)=\sum_{i\in I_n}p_i\cdot T(i)$
 \item Falls $f,g$ differenzierbar, $X$ eines der fünf Landau-Symbole:\\
  $f'(n)\in X(g'(n))\Rightarrow f(n)\in X(g(n))$
 \end{itemize}
-\section{Datenstrukturen für Sequenzen}
+\section{Datenstrukturen}
 \subsection{Dynamische Felder}
 \begin{itemize}
 \item Parameter:\begin{itemize}
@@ -65,6 +67,31 @@ $\color{blue}t(n)=\sum_{i\in I_n}p_i\cdot T(i)$
 \subsection{Doppelt verkettete Listen}
 
 \subsection{Stacks und Queues}
+
+\subsection{Binäre Heaps}
+\begin{itemize}
+\item -siftDown(int) : void $\in\mathcal{O}(log~n)$
+\item -siftUp(int) : void $\in\mathcal{O}(log~n)$
+\item +deleteMin() : X $\in\mathcal{O}(siftDown)$
+\item +min() : X $\in\mathcal{O}(1)$
+\item +insert(X) : void $\in\mathcal{O}(siftUp)$
+\item +build($x_1,...,x_n$) : void $\in\mathcal{O}(n)$
+\item +merge($B_2$) : void $\in\Theta(n)$
+\end{itemize}
+\subsection{Binomiale Heaps}
+Binomialbäume: gleiche Operationen und Laufzeiten wie Binäre Heaps.\\
+Weitere Operationen und Ausnahmen:
+\begin{itemize}
+\item decreaseKey $\in\mathcal{O}(log~n)$
+\item remove $\in\mathcal{O}(log~n)$
+\item merge $\in\mathcal{O}(log~n)$
+\end{itemize}
+\subsection{Fibonacci Heaps}
+\begin{itemize}
+\item min, insert, merge: $\mathcal{O}(1)$
+\item decreaseKey: $\mathcal{O}(1)$ (amortalisiert)
+\item deleteMin, remove: $\mathcal{O}(log~n)$ (amortalisiert)
+\end{itemize}
 \section{Hashing}
 $c$-universelles Hashing:\\
 Eine Familie $H$ von Hashfunktionen auf $\{0,...,m-1\}$ heißt $c$-universell, falls für jedes Paar $x\neq y$ von Schlüsseln gilt:\\
@@ -78,6 +105,48 @@ $\vert\{ h\in H: h(x)=h(y)\}\vert \leq \frac{c}{m}\vert H\vert$.\\
 Mit $m$ prim und $h_a(x)=\langle a,x\rangle ~mod~m$ ist $H=\{h_a:a\in \{0,...,m-1\}^k\}$ 1-universell.\\
 Mit $m$ prim und $h_a(x)=\sum_{i=1}^ka^{i-1}x_i ~mod~ m$ ist $H=\{h_a:a\in \{1,...,m-1\}\}$ $k$-universell.
 \section{Sortieren}
+\subsection{Master-Theorem}
+Seien $a,b,c,d$ positive Konstanten und $n=b^k$ mit $k\in\mathbb{N}$.\\
+Sei $r(n)=$\begin{itemize}
+\item $\color{blue}a$, falls $\color{orange}n=1$,
+\item $\color{blue}cn+d\cdot r(\frac{n}{b})$, falls $\color{orange}n>1$.
+\end{itemize}
+Dann gilt: $r(n)\in$\begin{itemize}
+\item $\color{cyan}\Theta(n)$, falls $\color{yellow}d<b$,
+\item $\color{cyan}\Theta(n~log~n)$, falls $\color{yellow}d=b$,
+\item $\color{cyan}\Theta(n^{log_bd})$, falls $\color{yellow}d>b$.
+\end{itemize}
+\subsection{Verfahren}
+\scalebox{.6}{
+\begin{tabular}{|l|c|c|c|l|}
+\hline
+\multicolumn{1}{|c|}{Algorithmus} & \multicolumn{3}{|c|}{Laufzeit} & \multicolumn{1}{|c|}{Eigenschaften}\\ \cline{2-4}
+ & Best Case & Average Case & Worst Case & \\
+\hline
+\hline
+\color{purple}Selection Sort & \cellcolor{red!25}$\Theta(n^2)$ & \cellcolor{red!25}$\Theta(n^2)$ & \cellcolor{red!25}$\Theta(n^2)$ & Einfach zu implementieren\\
+\hline
+\color{purple}Bubble Sort & \cellcolor{red!25}$\mathcal{O}(n^2)$ & \cellcolor{red!25}$\mathcal{O}(n^2)$ & \cellcolor{red!25}$\mathcal{O}(n^2)$ & Einfach zu implementieren\\
+\hline
+\color{blue}Heap Sort & \cellcolor{green!25}$\mathcal{O}(n)$ & \cellcolor{green!25}$\mathcal{O}(n~log~n)$ & \cellcolor{green!25}$\mathcal{O}(n~log~n)$ & Var. d. Selection Sort, bessere Minimumstrategie\\
+\hline
+\color{purple}Insertion Sort & \cellcolor{green!25}$\mathcal{O}(n)$ & \cellcolor{red!25}$\mathcal{O}(n^2)$ & \cellcolor{red!25}$\mathcal{O}(n^2)$ & Einfach zu implementieren\\
+\hline
+\color{blue}Bogo Sort & \cellcolor{green!25}$\mathcal{O}(n)$ & \cellcolor{red!50}$\mathcal{O}(n\cdot n!)$ & \cellcolor{red!75}$\mathcal{O}(\infty)$ & Einfach zu implementieren\\
+\hline
+\color{purple}Shell Sort & \cellcolor{green!25}$\mathcal{O}(n)$ & $\mathcal{O}(n~log^2~n)$ & $\mathcal{O}(n~log^2~n)$ & Variante d. Insertion Sort, bessere Einfügestrategie\\
+\hline
+\color{red}Merge Sort & $\mathcal{O}(n~log~n)$ & \cellcolor{green!25}$\mathcal{O}(n~log~n)$ & \cellcolor{green!25}$\mathcal{O}(n~log~n)$ & Sehr gut für Multi-Threading geeignet\\
+\hline
+\color{blue}Quick Sort & $\mathcal{O}(n~log~n)$ & \cellcolor{green!25}$\mathcal{O}(n~log~n)$ & \cellcolor{red!25}$\mathcal{O}(n^2)$ & Schnellstes Verfahren in der Praxis \\
+\hline
+\color{red}Radix Sort &\cellcolor{cyan!25} $\mathcal{O}(d\cdot (n+k))$ & \cellcolor{cyan!25}$\mathcal{O}(d\cdot (n+k))$ & \cellcolor{cyan!25}$\mathcal{O}(d\cdot (n+k))$ & $d$  Stellen, $k$ mögl. 'Ziffern' pro Stelle\\
+\hline
+\end{tabular}}\\\\
+\color{red} Stabil\\
+\color{blue} In-Place\\
+\color{purple} Stabil und In-Place
+\color{black}
 \section{Priority Queues}
 \section{Suchstrukturen}
 \section{Graphen}
