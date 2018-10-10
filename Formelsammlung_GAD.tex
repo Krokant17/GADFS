@@ -156,9 +156,46 @@ Dann gilt: $r(n)\in$\begin{itemize}
 \section{Pattern Matching}
 \section{Datenkompression}
 \section{Algorithmen}
-\subsection{Bellman-Ford}
-Löst SSSP mit beliebigen Kantengewichten. Ziel: Kürzeste Distanzen zu allen Knoten (von einem Startknoten aus gesehen), Erkennung von negativen Kreisen.
-\begin{itemize}
-\item S
+\subsection{SSSP-Algorithmen}
+\subsubsection{Topologische Sortierung}
+Löst SSSP auf DAGs mit beliebigen Kantengewichten.\\
+Angenommen, unser Graph hat $n$ Knoten und $m$ Kanten.\\
+Laufzeit: $\mathcal{O}(m+n)$\\
+\begin{enumerate}
+\item Wiederhole, bis alle Knoten abgearbeitet: \begin{itemize}
+\item Wähle beliebigen Knoten, der keine oder nur bereits abgearbeitete Vorgänger hat.
+\item Überprüfe, ob er eingetragene Distanzen "verbessern"  kann und aktualisiere ggf. Distanz und Vorgänger des jeweiligen Nachfolgers.
+\item Dieser Knoten ist nun abgearbeitet.
 \end{itemize}
+\end{enumerate}
+\subsubsection{Dijkstra}
+Löst SSSP mit positiven Kantengewichten (Graph muss kein DAG sein). Ziel: Kürzeste Distanzen zu allen Knoten (von einem Startknoten aus gesehen).\\
+Angenommen, unser Graph hat $n$ Knoten und $m$ Kanten.\\
+Laufzeit: $\mathcal{O}(m+n~log~n)$, mit Radix Heaps über $C$-adische Darstellung bis zu $\mathcal{O}(m+n~log~C)$ zu verbessern\\
+\begin{enumerate}
+\item Setze alle Distanzen auf $\infty$ und füge $(s,0)$ in die Queue ein
+\item Wiederhole, solange die Queue nicht leer ist:\begin{enumerate}
+\item Wähle den Knoten mit geringster Distanz ($x$) aus der Queue, der kürzeste Weg zu $x$ ist nun gefunden und $x$ ist jetzt abgearbeitet
+\item Berechne Distanzen zu allen noch nicht abgearbeiteten Nachfolgern von $x$ und füge sie in die Queue ein bzw. aktualisiere ggf. den neuen kürzeren Weg
+\end{enumerate}
+\end{enumerate}
+\subsubsection{Bellman-Ford}
+Löst SSSP mit beliebigen Kantengewichten (Graph muss kein DAG sein). Ziel: Kürzeste Distanzen zu allen Knoten (von einem Startknoten aus gesehen), Erkennung von negativen Kreisen.\\
+Angenommen, unser Graph hat $n$ Knoten und $m$ Kanten.\\
+Laufzeit: $\mathcal{O}(m\cdot n)$.\\
+Parameter: Startknoten $s$.
+\begin{enumerate}
+\item Setze alle \colorbox{blue!17}{Distanzen} auf \color{blue}$\infty$\color{black}.
+\item Setze \colorbox{blue!17}{Distanz des Knotens \color{purple}$s$} \color{black} auf \color{blue}$0$\color{black}.
+\item Wiederhole \color{cyan}$n-1$ \color{black} mal: \begin{enumerate}
+\item Gehe alle Kanten $e=(\color{green}v\color{black},\color{lime}w\color{black})$ aus der Kantenmenge durch, dabei:\begin{enumerate}
+\item Ist die \colorbox{blue!17}{Distanz des Knotens $\color{green}v$} plus die \colorbox{orange!25}{Kantenkosten} weniger als die \textbf{aktuelle} \colorbox{blue!17}{Distanz des Knotens $\color{lime}w$}? Falls ja, \textit{aktualisiere} \colorbox{blue!17}{Distanz des Knotens $\color{lime}w$} sowie seinen Vorgänger.
+\end{enumerate}
+\end{enumerate}
+\item Gehe nun noch ein letztes Mal alle Kanten $e=(\color{green}v\color{black},\color{lime}w\color{black})$ durch, dabei:\begin{enumerate}
+\item Ist die \colorbox{blue!17}{Distanz des Knotens $\color{green}v$} plus die \colorbox{orange!25}{Kantenkosten} weniger als die \textbf{aktuelle} \colorbox{blue!17}{Distanz des Knotens $\color{lime}w$}? Falls ja, \color{red}infiziere $\color{lime}w$ \color{black}und setze seinen Vorgänger auf $\color{green}v$.
+\end{enumerate}
+\end{enumerate}
+Infizieren eines Knotens $\color{red}x$: Setze \colorbox{blue!17}{Distanz des Knotens $\color{red}x$} auf $\color{blue}-\infty$, alle Nachfolger des Knotens werden sukzessive ebenfalls \color{red}infiziert\color{black}.\\
+\textbf{Anmerkung:} Bis auf den Wert der Distanz sind Schritte 3.(a) und 4 \textit{identisch}.
 \end{document}
